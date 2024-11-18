@@ -1,0 +1,217 @@
+{
+	"info": {
+		"_postman_id": "bc336c7a-154b-497a-9383-3db258b27a23",
+		"name": "Hopy",
+		"description": "CRMCOINS Rest API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1257354"
+	},
+	"item": [
+		{
+			"name": "Criar Pix",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"partner\": \"{{partner}}\",\r\n    \"id\": \"TESTE0000019\",    /* Seu codigo sequencia de transação, aconselhamos o uso de uma string grande iniciando por algo como no exemplo */\r\n    \"valor\": 1.00,\r\n    \"img\":\"S\",                 /* Se quer receber ou nao a imagem em format PNG ou JPG, sem a imagem o transporte de dados é menor e mais rapido*/\r\n    \"nome\":\"\",                 /*Alguns operadores como a paybrokers, exige a identificação do cliente aqui, se o CPF for especificado o nome é obrigatório, o pix sempre será dinamico */\r\n    \"cpf\":\"\",                  /*Alguns operadores como a paybrokers, exige a identificação do cliente aqui*/\r\n    \"imgtype\":\"png\",           /* Tipo da imagem retornado em base64, pode ser PNG ou JPG*/\r\n    \"webhook\":\"\", /* Aqui é seu webhook, que será notificado a cada alteração ocorrida no status do Pix efetuado*/\r\n    \"mudavalor\":\"true\",       /*Caso o cliente possa editar o valor a ser pago, gerando um qrcode dinamico, o valor pago final, sempre será notificado no webhook, o pix com \r\n                                este valor=true será criado como dinamico*/\r\n    \"dinamico\":\"true\",         /* Par afazer o pix dinamico, evita pagamento em duplicidade e pode ser nominal */\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/script/pixapi.prg/createpix",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"script",
+						"pixapi.prg",
+						"createpix"
+					]
+				},
+				"description": "**Descrição:**\n\nRegistra uma string livre em blockchain.\n\n**JSON de retorno:**\n\n{  \n\"code\": 0,  \n\"message\": \"successfully scheduled\"  \n}\n\nO Hash da transação será armazenado em nosso banco de dados e poderá ser consultado."
+			},
+			"response": []
+		},
+		{
+			"name": "Verificar situação",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"partner\": \"{{partner}}\",\r\n    \"id\": \"TESTE000002\"\r\n}\r\n\r\n/* Usado para consulta o status de um Pix, esta API retorna os mesmos dados do webhook, ela pode ser usada, quando se quiser usar em algum equipamento remoto, que não vai receber ativamente uma conexão webhook, como uma maquina ou aparelho celular, recomandamos usar a cada 1 segundos */",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/script/pixapi.prg/getstatus",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"script",
+						"pixapi.prg",
+						"getstatus"
+					]
+				},
+				"description": "**Descrição:**\n\nRegistra uma string livre em blockchain.\n\n**JSON de retorno:**\n\n{  \n\"code\": 0,  \n\"message\": \"successfully scheduled\"  \n}\n\nO Hash da transação será armazenado em nosso banco de dados e poderá ser consultado."
+			},
+			"response": []
+		},
+		{
+			"name": "Devolucao",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"partner\":\"{{partner}}\",\r\n   \"id\":\"DEV1000007\", // Sequencia de controla da transacao de devolucao\r\n   \"id_to_dev\":\"KETHOUT000009\", // Codigo interno seu da transação a ser devolvida\r\n   \"valor\":1.00,     // Valor da transacao para simples conferencia.\r\n   \"obs\":\"Pagamento em duplicidade\", // Observacao\r\n   \"motivo\":\"MD06\", // Codigo de motivo de devolucao - Padrão é MD06\r\n   \"webhook\":\"\" // Webhook que sera notificado quando a transacao for concluida\r\n}\r\n\r\n/*\r\nMotivos de devolução\r\nBE08 Devolução devido a um erro do PSP.\r\nFR01 Devolução devido a fraude no pagamento.\r\nMD06 Devolução solicitado pelo usuário recebedor do pagamento original.\r\nSL02 Devolução de pagamento solicitada pelo usuário recebedor motivada por um erro na transação ou desacordo entre as partes relacionados ao Pix Saque ou ao Pix Troco.\r\n*/",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/script/pixapi2.prg/devolver",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"script",
+						"pixapi2.prg",
+						"devolver"
+					]
+				},
+				"description": "**Descrição:**\n\nRegistra uma string livre em blockchain.\n\n**JSON de retorno:**\n\n{  \n\"code\": 0,  \n\"message\": \"successfully scheduled\"  \n}\n\nO Hash da transação será armazenado em nosso banco de dados e poderá ser consultado."
+			},
+			"response": []
+		},
+		{
+			"name": "Saldo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"partner\": \"{{partner}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/script/pixapi.prg/saldo",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"script",
+						"pixapi.prg",
+						"saldo"
+					]
+				},
+				"description": "**Descrição:**\n\nRegistra uma string livre em blockchain.\n\n**JSON de retorno:**\n\n{  \n\"code\": 0,  \n\"message\": \"successfully scheduled\"  \n}\n\nO Hash da transação será armazenado em nosso banco de dados e poderá ser consultado."
+			},
+			"response": []
+		},
+		{
+			"name": "Pix out sem Dict",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"partner\":\"{{partner}}\",\r\n   \"webhook\":\"\",\r\n   \"valor\":0.70,\r\n   \"obs\":\"pagamento de teste\",                   /* Observação livre */\r\n   \"idtransacao\":\"TESTE000011\",               /* ID sequencial da transacao */\r\n   /*Abaixo as funções para usi com o operador fiducia */\r\n   \"tipo\":\"1\",            /* Tipo de iniciacao: 0 – Manual, 1 – Chave,2 – QR Code Estático,3 – QR Code Dinâmico,6 – Serviço de Iniciação de Transação de Pagamento,7 – QR Code Pagador*/\r\n   \"tipochave\":\"3\",       /* Tipo de chave: 0 – CPF,1 – CNPJ,2 – E-mail,3 – Telefone Celular,4 – EVP (Endereço Virtual de Pagamento)*/\r\n   \"chave\":\"33999999999\"  /* Chave pix confirme tipochave */\r\n\r\n   /* Abaixo o ID obtido na consulta ao dict, isso serve apenas para o pixout no caso da conta TRIO */\r\n   /*\"id\": \"018c20a8-e82d-04ed-b0b2-e87a7de77b96\", */\r\n   /* Para o tipo 2,3 ou 7 usar o campo abaixo, para obter o valor do QRCode, precisa ler ele antes de chamar a rotina */\r\n   /*\"qrcode\":\"\",*/\r\n   \r\n   /* Este bloco deve ir apenas para o tipo = 0, que é o preenchiomento manual, neste caso ignorar o campo chave */\r\n   /*\r\n   \"banco\":\"\", \r\n   \"agencia\":\"\",\r\n   \"conta\":\"\",\r\n   \"documento\":\"CPF ou CNPJ \",\r\n   \"nome\":\"\",\r\n   \"tipopessoa\":\"F ou J\",\r\n   \"tipoconta\":\"CC - Conta Corrente ou CS - Conta Salário ou PP - Conta Poupança ou PG - Conta de Pagamento\"\r\n   */\r\n\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/script/pixapi.prg/pixout",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"script",
+						"pixapi.prg",
+						"pixout"
+					]
+				},
+				"description": "**Descrição:**\n\nRegistra uma string livre em blockchain.\n\n**JSON de retorno:**\n\n{  \n\"code\": 0,  \n\"message\": \"successfully scheduled\"  \n}\n\nO Hash da transação será armazenado em nosso banco de dados e poderá ser consultado."
+			},
+			"response": []
+		},
+		{
+			"name": "Comprovante",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"partner\": \"{{partner}}\",\r\n    \"id\": \"71191876690430850074\" /* Codigo interno da transação para geração dos comprovantes */\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/script/pixapi.prg/comprovante",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"script",
+						"pixapi.prg",
+						"comprovante"
+					]
+				},
+				"description": "**Descrição:**\n\nRegistra uma string livre em blockchain.\n\n**JSON de retorno:**\n\n{  \n\"code\": 0,  \n\"message\": \"successfully scheduled\"  \n}\n\nO Hash da transação será armazenado em nosso banco de dados e poderá ser consultado."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "partner",
+			"value": "2728a683-66eb-4ee4-adea-a74eea038df4",
+			"type": "string"
+		},
+		{
+			"key": "url",
+			"value": "https://www.crmcoins.com.br",
+			"type": "string"
+		}
+	]
+}

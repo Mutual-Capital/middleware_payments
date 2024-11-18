@@ -1,0 +1,6 @@
+=> Hopy pay irá criar o pagamento, esse sistema irá receber esse pagamento e vamos mandar pra flip. A flip irá realizar o pagamento e todos os seus processos e irá mandar uma notificação para esse sistema.
+E no final iremos mandar essa notificação pra hopy pay.
+
+=> Na documentação da FLIP, dê uma olhada em "postback". Aparentemente é esse o webhook da flip.
+
+=> 

@@ -10,7 +10,8 @@ dotenv.config();
 app.use(express.json())
 app.use(routes_hopy);
 app.use(routesApiPix);
-app.use('/', (req, res) => {
+
+app.get('/', (req, res) => {
     res.send('Hello from server!');
 })
 app.use(middlewareErrors);

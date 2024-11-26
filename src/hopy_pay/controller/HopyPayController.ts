@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Request, Response } from "express";
-import { createPaymentCrmCoins } from "../../api_pix/controller/ApiPixController";
+import { createPaymentCrmCoins } from "../../crm_coins/controller/ApiPixController";
 import { updateLogForPaymentApiPix, updateLogForPaymentHopyPay } from "../../model/Logs/Logs";
 import { randomUUID } from "crypto";
 

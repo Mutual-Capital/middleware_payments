@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import routes_hopy from "./hopy_pay/routes/routes";
-import { routesApiPix } from "./api_pix/routes/routes";
+import { routesApiPix } from "./crm_coins/routes/routes";
 import { middlewareErrors } from "./middlewares/errors/middleware_erros";
 
 const app = express();

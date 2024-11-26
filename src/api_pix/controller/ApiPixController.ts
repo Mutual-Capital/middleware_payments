@@ -31,6 +31,7 @@ async function createPaymentCrmCoins(req: Request, hopy_id_payment: number) {
         console.log(res.data);
         await logForPaymentCreationHopyPay('Payment Created', 'Aguardando Pagamento', 200, String(hopy_id_payment), id);
         await logForPaymentCreationApiPix('Payment Created', 'Aguardando Pagamento', 200, String(hopy_id_payment), id);
+        return res.data
     })
     .catch(async (error) => {
         console.log(error);

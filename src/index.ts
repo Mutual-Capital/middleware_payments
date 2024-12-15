@@ -3,6 +3,7 @@ import express from "express";
 import routes_hopy from "./hopy_pay/routes/routes";
 import { routesApiPix } from "./crm_coins/routes/routes";
 import { middlewareErrors } from "./middlewares/errors/middleware_erros";
+import { prisma } from "../prisma/db/PrismaClient";
 
 const app = express();
 
@@ -12,7 +13,9 @@ app.use(routes_hopy);
 app.use(routesApiPix);
 
 app.get('/', (req, res) => {
-    res.send('Hello from server!');
+    const logs = prisma.logs.findMany();
+
+    res.json({logs});
 });
 
 app.use(middlewareErrors);

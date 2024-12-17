@@ -15,6 +15,9 @@ app.use(routesApiPix);
 app.get('/', (req, res) => {
     const logs = prisma.logs.findMany();
 
+    console.log('LOGS');
+    console.log(logs);
+
     res.send({logs});
 });
 

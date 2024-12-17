@@ -1,5 +1,6 @@
 import { prisma } from "../../../prisma/db/PrismaClient";
 
+
 async function logForPaymentCreationHopyPay(response: string, payment_status: string, statusCode: number, hopy_id_payment: string, apiPix_id_payment: string) {
     await prisma.logs.create({
         data: {

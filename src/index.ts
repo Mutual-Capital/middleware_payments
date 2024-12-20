@@ -12,8 +12,8 @@ app.use(express.json())
 app.use(routes_hopy);
 app.use(routesApiPix);
 
-app.get('/', (req, res) => {
-    const logs = prisma.logs.findMany();
+app.get('/', async (req, res) => {
+    const logs = await prisma.logs.findMany();
 
     console.log('logs');
     console.log(logs);
@@ -24,5 +24,5 @@ app.get('/', (req, res) => {
 app.use(middlewareErrors);
 
 app.listen(process.env.APP_PORT || 3000, () => {
-    console.log(`rodando na porta ${process.env.APP_PORT ?? 3000}`);
+    console.log(`rodando - http://localhost:${process.env.APP_PORT ?? 3000}`);
 })
